@@ -1,5 +1,5 @@
 import os
-
+import pyHook
 from msvcrt import getch
 
 class Winloss(object):
