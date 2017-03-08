@@ -1,9 +1,8 @@
 from .config import *
+import re
 
+CHAT_MSG = re.compile(r"^:\w+!\w+@\w+\.tmi\.twitch\.tv PRIVMSG #\w+ :")
 class Bot(object):
-    def __init__(self):
-        self.var = 0
-
     def chat(self,sock,msg):
         """
            Send a chat message to the server.
@@ -11,7 +10,11 @@ class Bot(object):
            sock -- the socket over which to send the message
            msg  -- the message to be sent
            """
-        sock.send("PRIVMSG #{} :{}".format(CHAN, msg))
+        sender = "PRIVMSG " + CHAN + " :" + msg +"\r\n"
+        sock.send(sender.encode())
+        #print(sender)
+        # "PRIVMSG #{} :{}".format(CHAN, msg))
+
 
     def ban(self,sock,user):
         """
