@@ -1,8 +1,12 @@
 from .config import *
+from .saltcoins import Coins
 import re
 
 CHAT_MSG = re.compile(r"^:\w+!\w+@\w+\.tmi\.twitch\.tv PRIVMSG #\w+ :")
 class Bot(object):
+    def __init__(self):
+        self.coins = Coins()
+
     def chat(self,sock,msg):
         """
            Send a chat message to the server.
@@ -12,9 +16,6 @@ class Bot(object):
            """
         sender = "PRIVMSG " + CHAN + " :" + msg +"\r\n"
         sock.send(sender.encode())
-        #print(sender)
-        # "PRIVMSG #{} :{}".format(CHAN, msg))
-
 
     def ban(self,sock,user):
         """
@@ -34,3 +35,13 @@ class Bot(object):
            secs -- the length of the timeout in seconds (default 600)
            """
         self.chat(sock, ".timeout {}".format(user,secs))
+
+    def bets(self,sock,user,amount,option):
+        if amount > USERCOINS[user]:
+            self.chat(sock,user+" - You don't have enough SaltCoins!")
+        else:
+            if option == "1":
+                BETDICTFOR[user] = amount
+            elif option == "2":
+                BETDICTAGAINST[user] = amount
+            USERCOINS[user] = USERCOINS[user]-amount

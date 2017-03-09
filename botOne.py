@@ -22,11 +22,12 @@ if __name__ == '__main__':
         if response == "PING :tmi.twitch.tv\r\n":
             s.send("PONG :tmi.twitch.tv\r\n".encode("utf-8"))
         else:
-            #print(response)
-
             username = re.search(r"\w+", response).group(0) # return the entire match
             message = bot.CHAT_MSG.sub("", response)
-            print(username + ": " + message)
+            #print(username + ": " + message)
+            if "!bet" in message:
+                amount = int(message.split(" "))
+                print(amount)
 
         time.sleep(1/RATE)
 
