@@ -35,6 +35,9 @@ class Winloss(object):
                 self.win = self.win+1
             elif update == "2":
                 self.lose = self.lose+1
+            elif update == "0":
+                self.lose = 0
+                self.win = 0
 
             self.winPercent = self.win/(self.win+self.lose)*100 #percent increase - abs(((self.win - oldWin)/oldWin)*100)
             self.losePercent = abs(self.winPercent-100)

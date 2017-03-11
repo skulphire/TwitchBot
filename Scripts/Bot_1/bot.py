@@ -1,11 +1,11 @@
 from .config import *
-from .saltcoins import Coins
+#from .saltcoins import Coins
 import re
 
 CHAT_MSG = re.compile(r"^:\w+!\w+@\w+\.tmi\.twitch\.tv PRIVMSG #\w+ :")
 class Bot(object):
-    def __init__(self):
-        self.coins = Coins()
+    #def __init__(self):
+        #self.coins = Coins()
 
     def chat(self,sock,msg):
         """

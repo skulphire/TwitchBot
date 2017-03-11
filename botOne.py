@@ -25,9 +25,11 @@ if __name__ == '__main__':
             username = re.search(r"\w+", response).group(0) # return the entire match
             message = bot.CHAT_MSG.sub("", response)
             #print(username + ": " + message)
-            if "!bet" in message:
-                amount = int(message.split(" "))
-                print(amount)
+
+            #if "!bet" in message:
+            #    list = message.split(" ")
+            #    amount = list[1]
+            #    option = list[2]
 
         time.sleep(1/RATE)
 
