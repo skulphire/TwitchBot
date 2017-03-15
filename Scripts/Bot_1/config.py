@@ -8,3 +8,4 @@ RATE = (20/30) #messages per second
 BETDICTFOR = {}
 BETDICTAGAINST = {}
 USERCOINS = {}
+CLIENT_ID = "qpp2ixfulexkmd5picu4fajk1o1g6b"

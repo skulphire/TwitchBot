@@ -1,6 +1,7 @@
 from .config import *
 #from .saltcoins import Coins
 import re
+import json
 
 CHAT_MSG = re.compile(r"^:\w+!\w+@\w+\.tmi\.twitch\.tv PRIVMSG #\w+ :")
 class Bot(object):
