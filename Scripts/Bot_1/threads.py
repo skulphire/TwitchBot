@@ -11,3 +11,9 @@ class Threads(object):
         followers = json.loads(followers)
         for follower in followers['follow']:
             print(follower['user']['display_name'])
+
+    def updateViewers(self, group):
+        viewers = self.api.getViewers()
+        viewers = json.loads(viewers)
+        for viewer in viewers['chatters'][group]:
+            print(viewer)

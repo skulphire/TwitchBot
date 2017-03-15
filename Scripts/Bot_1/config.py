@@ -9,3 +9,11 @@ BETDICTFOR = {}
 BETDICTAGAINST = {}
 USERCOINS = {}
 CLIENT_ID = "qpp2ixfulexkmd5picu4fajk1o1g6b"
+
+#groups for finding viewers
+MOD = 'moderators'
+STAFF = 'staff'
+ADMINS = 'admins'
+GLOBAL_MODS = 'global_mods'
+VIEWERS = 'viewers'
+
