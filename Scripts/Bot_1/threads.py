@@ -9,11 +9,19 @@ class Threads(object):
     def updateFollowers(self,limit=25,direction='desc'):
         followers = self.api.getFollowers(limit,direction)
         followers = json.loads(followers)
-        for follower in followers['follow']:
-            print(follower['user']['display_name'])
+        for follower in followers['follows']:
+            #print(follower['user']['display_name'])
+            CURRENTVIEWERS.append(follower['user']['display_name'])
+
+    def getAllFollowers(self, limit, direction='desc'):
+        followers = self.api.getFollowers(limit, direction)
+        followers = json.loads(followers)
+        for follower in followers['follows']:
+            ALLFOLLOWERS.append(follower['user']['display_name'])
 
     def updateViewers(self, group):
         viewers = self.api.getViewers()
         viewers = json.loads(viewers)
         for viewer in viewers['chatters'][group]:
-            print(viewer)
+            #print(viewer)
+            CURRENTVIEWERS.append(viewer)

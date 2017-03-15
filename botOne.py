@@ -1,11 +1,14 @@
 from Scripts.Bot_1 import bot
 from Scripts.Bot_1.config import *
+from Scripts.Bot_1 import threads
 import socket
 import time
 import re
 
+
 if __name__ == '__main__':
     s = socket.socket()
+    followers = input("How many followers? ")
     try:
         s.connect((HOST,PORT))
     except Exception:
@@ -16,6 +19,8 @@ if __name__ == '__main__':
     s.send("JOIN {}\r\n".format(CHAN).encode("utf-8"))
 
     command = bot.Bot()
+    threader = threads.Threads()
+    threader.getAllFollowers(followers)
 
     while True:
         response = s.recv(1024).decode("utf-8")
@@ -25,7 +30,6 @@ if __name__ == '__main__':
             username = re.search(r"\w+", response).group(0) # return the entire match
             message = bot.CHAT_MSG.sub("", response)
             #print(username + ": " + message)
-
             #if "!bet" in message:
             #    list = message.split(" ")
             #    amount = list[1]
