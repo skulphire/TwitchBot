@@ -37,6 +37,9 @@ class Bot(object):
            """
         self.chat(sock, ".timeout {}".format(user,secs))
 
+    def getDefaultCoins(self,sock,user):
+        USERCOINS[user] = DEFAULTCOIN
+
     def bets(self,sock,user,amount,option):
         if amount > USERCOINS[user]:
             self.chat(sock,user+" - You don't have enough SaltCoins!")

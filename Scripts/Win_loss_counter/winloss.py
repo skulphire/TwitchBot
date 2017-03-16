@@ -1,8 +1,5 @@
 import os
 
-
-
-
 class Winloss(object):
     def __init__(self):
         self.win = 0
