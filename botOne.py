@@ -50,15 +50,20 @@ if __name__ == '__main__':
                 if not user == "*":
                     print(user + ": " + msg)
                 timer.minuteCoinsTimer()
+                APIDriver.updateViewers(MOD)
+                if not msg == "*":
+                    if "!getcoins" or "!GetCoins" or "!Getcoins" or "!getCoins" == msg:
+                        print(msg)
+                        command.getDefaultCoins(s,user)
+                        print("gave coins")
+                    elif "!coins" is msg:
+                        command.chat(s,user + " has " +coins.checkCoins(user) + "coins")
+                        print(coins.checkCoins(user))
 
-                if "!getcoins" or "!GetCoins" or "!Getcoins" or "!getCoins":
-                    command.getDefaultCoins(s,user)
-
-                #if "!bet" in msg:
-                #    list = message.split(" ")
-                #    amount = list[1]
-                #    option = list[2]
+                    #if "!bet" in msg:
+                    #    list = message.split(" ")
+                    #    amount = list[1]
+                    #    option = list[2]
     except KeyboardInterrupt:
-        input()
         with open(f,'w') as file:
             json.dump(USERCOINS,file)

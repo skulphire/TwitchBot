@@ -29,4 +29,5 @@ class APIDriver(object):
         viewers = json.loads(viewers)
         for viewer in viewers['chatters'][group]:
             #print(viewer)
-            CURRENTVIEWERS.append(viewer)
+            if not viewer in CURRENTVIEWERS:
+                CURRENTVIEWERS.append(viewer)

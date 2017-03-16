@@ -2,6 +2,9 @@ from .config import *
 import time
 
 class Coins(object):
+    def addUser(self,user):
+        USERCOINS[user] = 0
+
     def checkCoins(self,user):
         return USERCOINS[user]
 
