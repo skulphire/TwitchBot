@@ -1,11 +1,13 @@
 from Scripts.Bot_1 import bot
 from Scripts.Bot_1.config import *
-from Scripts.Bot_1 import threads
+from Scripts.Bot_1 import APIDriver
 from Scripts.Bot_1 import saltcoins
 import socket
 import time
 import re
-import threading
+import datetime
+
+
 
 
 if __name__ == '__main__':
@@ -23,8 +25,11 @@ if __name__ == '__main__':
     s.send("JOIN {}\r\n".format(CHAN).encode("utf-8"))
 
     command = bot.Bot()
-    threader = threads.Threads()
-    threader.getAllFollowers(followers)
+    APIDriver = APIDriver.APIDriver()
+    APIDriver.getAllFollowers(followers)
+    command.chat(s, "Connected!")
+    now = datetime.datetime.now()
+    currentMin = now.minute
 
     while True:
         response = s.recv(1024).decode("utf-8")
@@ -35,17 +40,15 @@ if __name__ == '__main__':
             message = bot.CHAT_MSG.sub("", response)
             #print(username + ": " + message)
 
-            minuteCoins = threading.Timer(10, coins.timedCoins())
-            if not minuteCoins.isAlive():
-                print("Starting minuteCoins...")
-                minuteCoins.start()
-
-
+        now = datetime.datetime.now()
+        newMin = now.minute
+        if currentMin < newMin:
+            currentMin = newMin
+            print("minute")
 
             #if "!bet" in message:
             #    list = message.split(" ")
             #    amount = list[1]
             #    option = list[2]
 
-        time.sleep(1/RATE)
-
+        #time.sleep(1/RATE)

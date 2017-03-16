@@ -1,4 +1,6 @@
 from .config import *
+#import threading
+import time
 
 class Coins(object):
     def checkCoins(self,user):

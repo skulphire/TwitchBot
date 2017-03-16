@@ -2,7 +2,7 @@ from .config import *
 from .TwitchAPI import API
 import json
 
-class Threads(object):
+class APIDriver(object):
     def __init__(self):
         self.api = API()
 
