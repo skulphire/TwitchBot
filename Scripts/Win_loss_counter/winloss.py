@@ -12,8 +12,6 @@ class Winloss(object):
         self.f = "winloss.txt"
         self.usefile()
 
-
-
     def usefile(self):
         try:
             file = open(self.f,'r')
@@ -33,9 +31,9 @@ class Winloss(object):
         file = open(self.f, 'w')
         self.writeFile(file)
 
-    def countWinLoss(self, update):
+    def countWinLoss(self):
         while True:
-            #update = input("win(1),loss(2): ")
+            update = input("win(1),loss(2): ")
             if update == "1":
                 self.win = self.win+1
                 self.percentages()

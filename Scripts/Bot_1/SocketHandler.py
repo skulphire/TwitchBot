@@ -21,6 +21,8 @@ class SockHandle(object):
 
     def responses(self):
         #checks for data
+        username = "*"
+        message = "*"
         ready = select.select([self.s],[],[],1)
         if ready[0]:
             response = self.s.recv(1024).decode("utf-8")
@@ -30,4 +32,4 @@ class SockHandle(object):
                 username = re.search(r"\w+", response).group(0)  # return the entire match
                 message = CHAT_MSG.sub("", response)
                 #print(username + ": " + message)
-                return username, message
+        return username, message
