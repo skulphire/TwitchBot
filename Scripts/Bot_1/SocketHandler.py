@@ -20,6 +20,7 @@ class SockHandle(object):
         self.s.setblocking(0)
 
     def responses(self):
+        #checks for data
         ready = select.select([self.s],[],[],1)
         if ready[0]:
             response = self.s.recv(1024).decode("utf-8")

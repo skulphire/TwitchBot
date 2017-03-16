@@ -15,7 +15,6 @@ class Winloss(object):
 
 
     def usefile(self):
-
         try:
             file = open(self.f,'r')
         except:
@@ -34,17 +33,16 @@ class Winloss(object):
         file = open(self.f, 'w')
         self.writeFile(file)
 
-    def countWinLoss(self):
+    def countWinLoss(self, update):
         while True:
-            oldWin = self.win
-            update = input("win(1),loss(2): ")
+            #update = input("win(1),loss(2): ")
             if update == "1":
                 self.win = self.win+1
                 self.percentages()
             elif update == "2":
                 self.lose = self.lose+1
                 self.percentages()
-            elif update == "0":
+            elif update == "set0":
                 self.lose = 0
                 self.win = 0
                 self.winPercent = 0

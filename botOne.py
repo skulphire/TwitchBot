@@ -37,7 +37,7 @@ if __name__ == '__main__':
 
     while True:
             user, msg = socket.responses()
-            timer.minuteTimer()
+            timer.minuteCoinsTimer()
 
             #if "!bet" in msg:
             #    list = message.split(" ")

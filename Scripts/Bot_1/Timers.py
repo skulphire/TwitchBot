@@ -8,7 +8,7 @@ class Timers(object):
         self.currentMin = self.now.minute
         self.coins = Coins()
 
-    def minuteTimer(self):
+    def minuteCoinsTimer(self):
         now = datetime.datetime.now()
         newMin = now.minute
         if self.currentMin < newMin:
