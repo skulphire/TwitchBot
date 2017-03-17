@@ -63,7 +63,6 @@ if __name__ == '__main__':
                             #print(str(coins.checkCoins(user)))
                         except Exception:
                             print("No value yet")
-
                     elif ("!bet") in msg:
                        list = msg.split(" ")
                        amount = list[1]

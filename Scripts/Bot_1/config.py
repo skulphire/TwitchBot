@@ -7,8 +7,9 @@ CHAN = "#aphiremarbl"
 RATE = (20/30) #messages per second
 CLIENT_ID = "qpp2ixfulexkmd5picu4fajk1o1g6b" #from nosaltbot settings/connections
 
-BETDICTFOR = {}
-BETDICTAGAINST = {}
+BETWIN = {}
+BETLOSE = {}
+OUTCOME = 0
 
 USERCOINS = {}
 FOLLOWREWARD = 200

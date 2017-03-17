@@ -45,7 +45,7 @@ class Bot(object):
             self.chat(sock,user+" - You don't have enough SaltCoins!")
         else:
             if option == "1":
-                BETDICTFOR[user] = amount
+                BETWIN[user] = amount
             elif option == "2":
-                BETDICTAGAINST[user] = amount
+                BETLOSE[user] = amount
             USERCOINS[user] = USERCOINS[user]-amount

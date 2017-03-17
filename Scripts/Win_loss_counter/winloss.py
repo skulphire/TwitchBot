@@ -1,4 +1,5 @@
 import os
+import Scripts.Bot_1.config as config
 
 class Winloss(object):
     def __init__(self):
@@ -22,8 +23,7 @@ class Winloss(object):
         file.close()
 
     def percentages(self):
-        self.winPercent = self.win / (
-        self.win + self.lose) * 100  # percent increase - abs(((self.win - oldWin)/oldWin)*100)
+        self.winPercent = self.win / (self.win + self.lose) * 100  # percent increase - abs(((self.win - oldWin)/oldWin)*100)
         self.losePercent = abs(self.winPercent - 100)
         file = open(self.f, 'w')
         self.writeFile(file)
@@ -33,9 +33,11 @@ class Winloss(object):
             update = input("win(1),loss(2): ")
             if update == "1":
                 self.win = self.win+1
+                config.OUTCOME = 1
                 self.percentages()
             elif update == "2":
                 self.lose = self.lose+1
+                config.OUTCOME = 2
                 self.percentages()
             elif update == "set0":
                 self.lose = 0
