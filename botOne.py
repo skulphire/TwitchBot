@@ -52,7 +52,7 @@ if __name__ == '__main__':
                     elif ("!coins") in msg:
                         command.chat(s,user + " has " +str(coins.checkCoins(user)) + " coins")
                         print(str(coins.checkCoins(user)))
-                    elif "!bet" in msg:
+                    elif ("!bet") in msg:
                        list = msg.split(" ")
                        amount = list[1]
                        option = list[2]
