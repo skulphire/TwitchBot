@@ -20,7 +20,8 @@ if __name__ == '__main__':
     except:
         print("usercoins.json not found. File will be created")
 
-    USERCOINS = deepcopy(coinlib)
+    USERCOINS.update(coinlib)
+
     socket = SocketHandler.SockHandle()
     s = socket.s
 
@@ -47,16 +48,17 @@ if __name__ == '__main__':
                     if ("!getcoins" or "!GetCoins" or "!Getcoins" or "!getCoins") in msg:
                         #print(msg)
                         command.getDefaultCoins(s,user)
-                        print("gave coins")
+                        command.chat(s,user+" has recieved "+DEFAULTCOIN+" coins")
                     elif ("!coins") in msg:
                         command.chat(s,user + " has " +str(coins.checkCoins(user)) + " coins")
                         print(str(coins.checkCoins(user)))
+                    elif "!bet" in msg:
+                       list = msg.split(" ")
+                       amount = list[1]
+                       option = list[2]
 
-                    #if "!bet" in msg:
-                    #    list = message.split(" ")
-                    #    amount = list[1]
-                    #    option = list[2]
     except KeyboardInterrupt:
+        print(USERCOINS)
         command.chat(s,"Goodbye!")
         with open(f,'w') as file:
             json.dump(USERCOINS,file)
