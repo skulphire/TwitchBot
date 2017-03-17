@@ -8,16 +8,24 @@ class APIDriver(object):
 
     def getNewFollowers(self, limit=25, direction='desc'):
         newsy = []
+        check = False
         followers = self.api.getFollowers(limit,direction)
         followers = json.loads(followers)
         for follower in followers['follows']:
             #print(follower['user']['display_name'])
             newsy.append(follower['user']['display_name'])
-        for count in range(0,limit):
-            if not newsy[count] == ALLFOLLOWERS[count]:
-                NEWFOLLOWERS.append(newsy[count])
 
-    def getAllFollowers(self, limit, direction='desc'):
+        for count in range(0,limit):
+            if not newsy[count] in ALLFOLLOWERS:
+                NEWFOLLOWERS.append(newsy[count])
+                check = True
+        return check
+
+    def addNewToAll(self):
+        for index in range(0,len(NEWFOLLOWERS)):
+            ALLFOLLOWERS.append(NEWFOLLOWERS[index])
+
+    def getAllFollowers(self, limit, direction='asc'):
         followers = self.api.getFollowers(limit, direction)
         followers = json.loads(followers)
         for follower in followers['follows']:
@@ -31,3 +39,5 @@ class APIDriver(object):
             #print(viewer)
             if not viewer in CURRENTVIEWERS:
                 CURRENTVIEWERS.append(viewer)
+                if not viewer in USERCOINS:
+                    USERCOINS[viewer] = 0

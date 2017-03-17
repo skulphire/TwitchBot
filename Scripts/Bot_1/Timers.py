@@ -13,5 +13,5 @@ class Timers(object):
         newMin = now.minute
         if self.currentMin < newMin:
             self.currentMin = newMin
-            #self.coins.timedCoins()
+            self.coins.timedCoins()
             print("minute")

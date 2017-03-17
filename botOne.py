@@ -4,7 +4,6 @@ from Scripts.Bot_1 import APIDriver
 from Scripts.Bot_1 import saltcoins
 from Scripts.Bot_1 import SocketHandler
 from Scripts.Bot_1 import Timers
-from copy import deepcopy
 import json
 import time
 
@@ -44,21 +43,34 @@ if __name__ == '__main__':
                     print(user + ": " + msg)
                 timer.minuteCoinsTimer()
                 APIDriver.updateViewers(MOD)
+                APIDriver.updateViewers(VIEWERS)
+                if APIDriver.getNewFollowers():
+                    ar = []
+                    for index in range(0,len(NEWFOLLOWERS)):
+                        newName = "@"+NEWFOLLOWERS[index]
+                        ar.append(newName)
+                    command.chat(s,"Welcome! "+str(ar))
+                    APIDriver.addNewToAll()
+
                 if not msg == "*":
                     if ("!getcoins" or "!GetCoins" or "!Getcoins" or "!getCoins") in msg:
                         #print(msg)
                         command.getDefaultCoins(s,user)
                         command.chat(s,user+" has recieved "+DEFAULTCOIN+" coins")
                     elif ("!coins") in msg:
-                        command.chat(s,user + " has " +str(coins.checkCoins(user)) + " coins")
-                        print(str(coins.checkCoins(user)))
+                        try:
+                            command.chat(s,user + " has " +str(coins.checkCoins(user)) + " coins")
+                            #print(str(coins.checkCoins(user)))
+                        except Exception:
+                            print("No value yet")
+
                     elif ("!bet") in msg:
                        list = msg.split(" ")
                        amount = list[1]
                        option = list[2]
 
     except KeyboardInterrupt:
-        print(USERCOINS)
+        print("Coins:\n"+str(USERCOINS))
         command.chat(s,"Goodbye!")
         with open(f,'w') as file:
             json.dump(USERCOINS,file)
