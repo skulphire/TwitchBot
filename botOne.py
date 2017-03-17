@@ -4,8 +4,8 @@ from Scripts.Bot_1 import APIDriver
 from Scripts.Bot_1 import saltcoins
 from Scripts.Bot_1 import SocketHandler
 from Scripts.Bot_1 import Timers
+from copy import deepcopy
 import json
-import os
 import time
 
 
@@ -13,12 +13,14 @@ import time
 
 if __name__ == '__main__':
     f = "usercoins.json"
+    coinlib = {}
     try:
         with open(f,'r') as file:
-            USERCOINS = json.load(file)
+            coinlib = json.load(file)
     except:
         print("usercoins.json not found. File will be created")
 
+    USERCOINS = deepcopy(coinlib)
     socket = SocketHandler.SockHandle()
     s = socket.s
 
@@ -34,16 +36,6 @@ if __name__ == '__main__':
 
     command.chat(s, "Connected!")
 
-    #thread for reading chat
-    # readChat = threading.Thread(target=socket.responseThread())
-    # readChat.daemon = True
-    # readChat.start()
-    # print("Started chat thread...")
-    #
-    # minute = threading.Thread(target=socket.minuteTimer())
-    # minute.daemon = True
-    # minute.start()
-    # print("Started minute thread...")
     try:
         while True:
                 user, msg = socket.responses()
@@ -52,18 +44,19 @@ if __name__ == '__main__':
                 timer.minuteCoinsTimer()
                 APIDriver.updateViewers(MOD)
                 if not msg == "*":
-                    if "!getcoins" or "!GetCoins" or "!Getcoins" or "!getCoins" == msg:
-                        print(msg)
+                    if ("!getcoins" or "!GetCoins" or "!Getcoins" or "!getCoins") in msg:
+                        #print(msg)
                         command.getDefaultCoins(s,user)
                         print("gave coins")
-                    elif "!coins" is msg:
-                        command.chat(s,user + " has " +coins.checkCoins(user) + "coins")
-                        print(coins.checkCoins(user))
+                    elif ("!coins") in msg:
+                        command.chat(s,user + " has " +str(coins.checkCoins(user)) + " coins")
+                        print(str(coins.checkCoins(user)))
 
                     #if "!bet" in msg:
                     #    list = message.split(" ")
                     #    amount = list[1]
                     #    option = list[2]
     except KeyboardInterrupt:
+        command.chat(s,"Goodbye!")
         with open(f,'w') as file:
             json.dump(USERCOINS,file)
