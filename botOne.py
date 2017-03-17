@@ -41,22 +41,12 @@ if __name__ == '__main__':
                 user, msg = socket.responses()
                 if not user == "*":
                     print(user + ": " + msg)
-                timer.minuteCoinsTimer()
-                APIDriver.updateViewers(MOD)
-                APIDriver.updateViewers(VIEWERS)
-                if APIDriver.getNewFollowers():
-                    ar = []
-                    for index in range(0,len(NEWFOLLOWERS)):
-                        newName = "@"+NEWFOLLOWERS[index]
-                        ar.append(newName)
-                    command.chat(s,"Welcome! "+str(ar))
-                    APIDriver.addNewToAll()
 
                 if not msg == "*":
                     if ("!getcoins" or "!GetCoins" or "!Getcoins" or "!getCoins") in msg:
                         #print(msg)
                         command.getDefaultCoins(s,user)
-                        command.chat(s,user+" has recieved "+DEFAULTCOIN+" coins")
+                        command.chat(s,"@"+user+" has recieved "+DEFAULTCOIN+" coins")
                     elif ("!coins") in msg:
                         try:
                             command.chat(s,user + " has " +str(coins.checkCoins(user)) + " coins")
@@ -67,6 +57,23 @@ if __name__ == '__main__':
                        list = msg.split(" ")
                        amount = list[1]
                        option = list[2]
+                       command.bets(s,user,amount,option)
+                    elif ("!give") in msg:
+                        list = msg.split(" ")
+                        userToGift = list[1]
+                        amount = list[2]
+                        coins.giveCoins(userToGift,amount)
+
+                timer.minuteCoinsTimer()
+                APIDriver.updateViewers(MOD)
+                APIDriver.updateViewers(VIEWERS)
+                if APIDriver.getNewFollowers():
+                    ar = []
+                    for index in range(0,len(NEWFOLLOWERS)):
+                        newName = "@"+NEWFOLLOWERS[index]
+                        ar.append(newName)
+                    command.chat(s,"Welcome! Thanks for following! "+str(ar))
+                    APIDriver.addNewToAll()
 
     except KeyboardInterrupt:
         print("Coins:\n"+str(USERCOINS))

@@ -10,12 +10,26 @@ class Better(object):
 
         return winPercent, losePercent
 
-    def payouts(self):
+    def payouts(self, outcome):
+
         #WIN
-        if OUTCOME == 1:
+        if outcome == 1:
             winners = len(BETWIN)
             totalCoins = self.addAllCoins()
-
+            extra = (totalCoins/winners)
+            for user in BETWIN:
+                coinsWon = BETWIN[user]*3.42
+                coinsWon += extra
+                USERCOINS[user] = USERCOINS[user]+coinsWon
+        #LOSE
+        elif outcome == 2:
+            winners = len(BETLOSE)
+            totalCoins = self.addAllCoins()
+            extra = (totalCoins / winners)
+            for user in BETLOSE:
+                coinsWon = BETLOSE[user] * 3.42
+                coinsWon += extra
+                USERCOINS[user] = USERCOINS[user] + coinsWon
 
     def addAllCoins(self):
         win = sum(BETWIN.values())

@@ -12,3 +12,6 @@ class Coins(object):
     def assignFollowCoins(self, user):
         if user in NEWFOLLOWERS:
             USERCOINS[user] = USERCOINS[user]+FOLLOWREWARD
+
+    def giveCoins(self,user, amount):
+        USERCOINS[user] = USERCOINS[user]+int(amount)

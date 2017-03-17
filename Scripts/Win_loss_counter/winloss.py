@@ -1,5 +1,6 @@
 import os
 import Scripts.Bot_1.config as config
+from Scripts.Bot_1 import better
 
 class Winloss(object):
     def __init__(self):
@@ -9,6 +10,7 @@ class Winloss(object):
         self.losePercent = 0
         self.f = "winloss.txt"
         self.usefile()
+        self.bets = better.Better()
 
     def usefile(self):
         try:
@@ -33,11 +35,13 @@ class Winloss(object):
             update = input("win(1),loss(2): ")
             if update == "1":
                 self.win = self.win+1
-                config.OUTCOME = 1
+                outcome = 1
+                self.bets.payouts(outcome)
                 self.percentages()
             elif update == "2":
                 self.lose = self.lose+1
-                config.OUTCOME = 2
+                outcome = 2
+                self.bets.payouts(outcome)
                 self.percentages()
             elif update == "set0":
                 self.lose = 0

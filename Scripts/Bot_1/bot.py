@@ -41,11 +41,13 @@ class Bot(object):
         USERCOINS[user] = DEFAULTCOIN
 
     def bets(self,sock,user,amount,option):
-        if amount > USERCOINS[user]:
-            self.chat(sock,user+" - You don't have enough SaltCoins!")
+        print("bet option:"+option+"BB")
+        if int(amount) > USERCOINS[user]:
+            self.chat(sock,"@"+user+" - You don't have enough SaltCoins!")
         else:
-            if option == "1":
-                BETWIN[user] = amount
-            elif option == "2":
-                BETLOSE[user] = amount
-            USERCOINS[user] = USERCOINS[user]-amount
+            if "1" in option:
+                BETWIN[user] = int(amount)
+                USERCOINS[user] = USERCOINS[user] - int(amount)
+            elif "2" in option:
+                BETLOSE[user] = int(amount)
+                USERCOINS[user] = USERCOINS[user]- int(amount)
