@@ -41,3 +41,11 @@ class APIDriver(object):
                 CURRENTVIEWERS.append(viewer)
                 if not viewer in USERCOINS:
                     USERCOINS[viewer] = 0
+
+    def checkMod(self, user):
+        viewers = self.api.getViewers()
+        viewers = json.loads(viewers)
+        if user in viewers['chatters'][MOD]:
+            return True
+        else:
+            return False

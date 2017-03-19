@@ -1,24 +1,34 @@
 import os
-import Scripts.Bot_1.config as config
-from Scripts.Bot_1 import better
 
 class Winloss(object):
     def __init__(self):
+        self.shots = 0
         self.win = 0
         self.winPercent = 0
         self.lose = 0
         self.losePercent = 0
-        self.f = "winloss.txt"
+        self.wltext = "winloss.txt"
+        self.shottext = "shots.txt"
         self.usefile()
-        self.bets = better.Better()
+
 
     def usefile(self):
         try:
-            file = open(self.f,'r')
+            file = open(self.wltext, 'r')
         except:
             print("File not found, creating...")
-            file = open(self.f,'w')
+            file = open(self.wltext, 'w')
             self.writeFile(file)
+        try:
+            file = open(self.shottext, "r")
+        except:
+            print("File not found, creating...")
+            file = open(self.shottext, 'w')
+            self.writeShots(file)
+
+    def writeShots(self,file):
+        file.write("%s" % (self.shots))
+        file.close()
 
     def writeFile(self, file):
         file.write("Win: %d(%d%%)      Loss: %d(%d%%)" % (self.win, self.winPercent, self.lose,self.losePercent))
@@ -27,26 +37,28 @@ class Winloss(object):
     def percentages(self):
         self.winPercent = self.win / (self.win + self.lose) * 100  # percent increase - abs(((self.win - oldWin)/oldWin)*100)
         self.losePercent = abs(self.winPercent - 100)
-        file = open(self.f, 'w')
+        file = open(self.wltext, 'w')
         self.writeFile(file)
 
     def countWinLoss(self):
         while True:
-            update = input("win(1),loss(2): ")
-            if update == "1":
+            update = input(": ")
+            if update == "win":
                 self.win = self.win+1
-                outcome = 1
-                self.bets.payouts(outcome)
                 self.percentages()
-            elif update == "2":
+            elif update == "lose":
                 self.lose = self.lose+1
-                outcome = 2
-                self.bets.payouts(outcome)
                 self.percentages()
-            elif update == "set0":
+            elif update == "shot":
+                self.shots += 1
+                file = open(self.shottext,"w")
+                self.writeShots(file)
+            elif update == "setshot0":
+                self.shots = 0
+            elif update == "setwl0":
                 self.lose = 0
                 self.win = 0
                 self.winPercent = 0
                 self.losePercent = 0
-                file = open(self.f, 'w')
+                file = open(self.wltext, 'w')
                 self.writeFile(file)

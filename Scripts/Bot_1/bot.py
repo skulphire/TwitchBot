@@ -1,5 +1,4 @@
 from .config import *
-#from .saltcoins import Coins
 import re
 
 
@@ -41,7 +40,6 @@ class Bot(object):
         USERCOINS[user] = DEFAULTCOIN
 
     def bets(self,sock,user,amount,option):
-        print("bet option:"+option+"BB")
         if int(amount) > USERCOINS[user]:
             self.chat(sock,"@"+user+" - You don't have enough SaltCoins!")
         else:

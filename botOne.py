@@ -4,6 +4,7 @@ from Scripts.Bot_1 import APIDriver
 from Scripts.Bot_1 import saltcoins
 from Scripts.Bot_1 import SocketHandler
 from Scripts.Bot_1 import Timers
+from Scripts.Bot_1 import better
 import json
 import time
 
@@ -30,6 +31,8 @@ if __name__ == '__main__':
 
     command = bot.Bot()
 
+    bets = better.Better()
+
     APIDriver = APIDriver.APIDriver()
     followers = input("How many followers? ")
     APIDriver.getAllFollowers(followers)
@@ -46,7 +49,7 @@ if __name__ == '__main__':
                     if ("!getcoins" or "!GetCoins" or "!Getcoins" or "!getCoins") in msg:
                         #print(msg)
                         command.getDefaultCoins(s,user)
-                        command.chat(s,"@"+user+" has recieved "+DEFAULTCOIN+" coins")
+                        command.chat(s,"@"+user+" has recieved "+str(DEFAULTCOIN)+" coins")
                     elif ("!coins") in msg:
                         try:
                             command.chat(s,user + " has " +str(coins.checkCoins(user)) + " coins")
@@ -59,10 +62,19 @@ if __name__ == '__main__':
                        option = list[2]
                        command.bets(s,user,amount,option)
                     elif ("!give") in msg:
-                        list = msg.split(" ")
-                        userToGift = list[1]
-                        amount = list[2]
-                        coins.giveCoins(userToGift,amount)
+                        if APIDriver.checkMod(user):
+                            list = msg.split(" ")
+                            userToGift = list[1]
+                            amount = list[2]
+                            coins.giveCoins(userToGift,amount)
+                        else:
+                            command.chat(s,"You do not have permission!")
+                    elif ("!win") in msg:
+                        if APIDriver.checkMod(user):
+                            bets.payoutsWin()
+                    elif ("!lose") in msg:
+                        if APIDriver.checkMod(user):
+                            bets.payoutsLose()
 
                 timer.minuteCoinsTimer()
                 APIDriver.updateViewers(MOD)
