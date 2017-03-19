@@ -69,12 +69,12 @@ if __name__ == '__main__':
                             coins.giveCoins(userToGift,amount)
                         else:
                             command.chat(s,"You do not have permission!")
-                    elif ("!win") in msg:
-                        if APIDriver.checkMod(user):
-                            bets.payoutsWin()
-                    elif ("!lose") in msg:
-                        if APIDriver.checkMod(user):
-                            bets.payoutsLose()
+                    # elif ("!win") in msg:
+                    #     if APIDriver.checkMod(user):
+                    #         bets.payoutsWin()
+                    # elif ("!lose") in msg:
+                    #     if APIDriver.checkMod(user):
+                    #         bets.payoutsLose()
 
                 timer.minuteCoinsTimer()
                 APIDriver.updateViewers(MOD)

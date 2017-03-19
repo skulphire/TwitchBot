@@ -2,6 +2,7 @@ import os
 
 class Winloss(object):
     def __init__(self):
+        self.outcome = 0
         self.shots = 0
         self.win = 0
         self.winPercent = 0
@@ -9,6 +10,7 @@ class Winloss(object):
         self.losePercent = 0
         self.wltext = "winloss.txt"
         self.shottext = "shots.txt"
+        self.vars = "vars.txt"
         self.usefile()
 
 
@@ -25,6 +27,16 @@ class Winloss(object):
             print("File not found, creating...")
             file = open(self.shottext, 'w')
             self.writeShots(file)
+        try:
+            file = open(self.vars, "r")
+        except:
+            print("File not found, creating...")
+            file = open(self.vars, 'w')
+            self.writeVars(file)
+
+    def writeVars(self, file):
+        file.write("%s" % (self.outcome))
+        file.close()
 
     def writeShots(self,file):
         file.write("%s" % (self.shots))
@@ -55,6 +67,8 @@ class Winloss(object):
                 self.writeShots(file)
             elif update == "setshot0":
                 self.shots = 0
+                file = open(self.shottext, "w")
+                self.writeShots(file)
             elif update == "setwl0":
                 self.lose = 0
                 self.win = 0
