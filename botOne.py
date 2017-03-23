@@ -92,8 +92,10 @@ if __name__ == '__main__':
                     outcome = file.read()
                     if outcome == "1":
                         bets.payoutsWin()
+                        command.chat(s,"Bets on Win have been paid out. Enjoy!")
                     elif outcome == "2":
                         bets.payoutsLose()
+                        command.chat(s, "Bets on Lose have been paid out. Enjoy!")
                     paid = True
                     file.close()
                     file = open("vars.txt", 'w')

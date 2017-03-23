@@ -17,7 +17,7 @@ class Better(object):
         totalCoins = self.addAllCoins()
         extra = (totalCoins/winners)
         for user in BETWIN:
-            coinsWon = BETWIN[user]*3.42
+            coinsWon = BETWIN[user]*1.5
             coinsWon += extra
             USERCOINS[user] = USERCOINS[user]+int(coinsWon)
 
@@ -27,7 +27,7 @@ class Better(object):
         totalCoins = self.addAllCoins()
         extra = (totalCoins / winners)
         for user in BETLOSE:
-            coinsWon = BETLOSE[user] * 3.42
+            coinsWon = BETLOSE[user] * 1.5
             coinsWon += extra
             USERCOINS[user] = USERCOINS[user] + int(coinsWon)
 
