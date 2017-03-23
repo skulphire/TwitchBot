@@ -37,6 +37,7 @@ class Winloss(object):
     def writeVars(self, file):
         file.write("%s" % (self.outcome))
         file.close()
+        self.outcome = 0
 
     def writeShots(self,file):
         file.write("%s" % (self.shots))
@@ -58,9 +59,15 @@ class Winloss(object):
             if update == "win":
                 self.win = self.win+1
                 self.percentages()
+                self.outcome = 1
+                file = open(self.vars,'w')
+                self.writeVars(file)
             elif update == "lose":
                 self.lose = self.lose+1
                 self.percentages()
+                self.outcome = 2
+                file = open(self.vars, 'w')
+                self.writeVars(file)
             elif update == "shot":
                 self.shots += 1
                 file = open(self.shottext,"w")

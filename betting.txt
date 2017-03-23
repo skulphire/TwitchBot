@@ -1,0 +1,1 @@
+Betting is open! use !bet amount option to place your bets. Example: !bet 100 1 for betting 100 on option 1
