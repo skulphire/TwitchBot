@@ -80,8 +80,7 @@ if __name__ == '__main__':
                             paid = False
                         else:
                             command.chat(s, "You do not have permission!")
-                    elif ("!sr"):
-                        link = msg
+
 
                 if currentBetting:
                     if not timer.betTimer():
@@ -96,6 +95,10 @@ if __name__ == '__main__':
                     elif outcome == "2":
                         bets.payoutsLose()
                     paid = True
+                    file.close()
+                    file = open("vars.txt", 'w')
+                    file.write("0")
+                    file.close()
 
                 timer.minuteCoinsTimer()
                 APIDriver.updateViewers(MOD)
