@@ -1,5 +1,6 @@
 from .config import *
 
+
 class Better(object):
     def percentages(self):
         win = len(BETWIN)

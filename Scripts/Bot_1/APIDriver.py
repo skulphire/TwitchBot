@@ -40,7 +40,7 @@ class APIDriver(object):
             if not viewer in CURRENTVIEWERS:
                 CURRENTVIEWERS.append(viewer)
                 if not viewer in USERCOINS:
-                    USERCOINS[viewer] = 0
+                    USERCOINS[viewer] = DEFAULTCOIN
 
     def checkMod(self, user):
         viewers = self.api.getViewers()

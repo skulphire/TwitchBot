@@ -32,13 +32,14 @@ if __name__ == '__main__':
     command = bot.Bot()
 
     bets = better.Better()
+    currentBetting = False
+    paid = True
 
     APIDriver = APIDriver.APIDriver()
     followers = input("How many followers? ")
     APIDriver.getAllFollowers(followers)
 
     command.chat(s, "Connected!")
-
     try:
         while True:
                 user, msg = socket.responses()
@@ -46,35 +47,55 @@ if __name__ == '__main__':
                     print(user + ": " + msg)
 
                 if not msg == "*":
-                    if ("!getcoins" or "!GetCoins" or "!Getcoins" or "!getCoins") in msg:
-                        #print(msg)
-                        command.getDefaultCoins(s,user)
-                        command.chat(s,"@"+user+" has recieved "+str(DEFAULTCOIN)+" coins")
-                    elif ("!coins") in msg:
+                    # if ("!getcoins" or "!GetCoins" or "!Getcoins" or "!getCoins") in msg:
+                    #     #print(msg)
+                    #     command.getDefaultCoins(s,user)
+                    #     command.chat(s,"@"+user+" has recieved "+str(DEFAULTCOIN)+" coins")
+                    if ("!coins") in msg:
                         try:
                             command.chat(s,user + " has " +str(coins.checkCoins(user)) + " coins")
                             #print(str(coins.checkCoins(user)))
                         except Exception:
                             print("No value yet")
                     elif ("!bet") in msg:
-                       list = msg.split(" ")
-                       amount = list[1]
-                       option = list[2]
-                       command.bets(s,user,amount,option)
+                       if currentBetting:
+                           list = msg.split(" ")
+                           amount = list[1]
+                           option = list[2]
+                           command.bets(s,user,amount,option)
+                       else:
+                           command.chat(s,"Betting is closed or has not opened!")
                     elif ("!give") in msg:
-                        if APIDriver.checkMod(user):
+                        if (APIDriver.checkMod(user) or user == "aphiremarbl"):
                             list = msg.split(" ")
                             userToGift = list[1]
                             amount = list[2]
                             coins.giveCoins(userToGift,amount)
                         else:
                             command.chat(s,"You do not have permission!")
-                    # elif ("!win") in msg:
-                    #     if APIDriver.checkMod(user):
-                    #         bets.payoutsWin()
-                    # elif ("!lose") in msg:
-                    #     if APIDriver.checkMod(user):
-                    #         bets.payoutsLose()
+                    elif ("!newbet") in msg:
+                        if (APIDriver.checkMod(user) or user == "aphiremarbl"):
+                            command.startBet(s)
+                            currentBetting = True
+                            paid = False
+                        else:
+                            command.chat(s, "You do not have permission!")
+                    elif ("!sr"):
+                        link = msg
+
+                if currentBetting:
+                    if not timer.betTimer():
+                        currentBetting = False
+                        command.chat(s,"Betting has closed")
+
+                if not paid and not currentBetting:
+                    file = open("vars.txt",'r')
+                    outcome = file.read()
+                    if outcome == "1":
+                        bets.payoutsWin()
+                    elif outcome == "2":
+                        bets.payoutsLose()
+                    paid = True
 
                 timer.minuteCoinsTimer()
                 APIDriver.updateViewers(MOD)
@@ -88,7 +109,7 @@ if __name__ == '__main__':
                     APIDriver.addNewToAll()
 
     except KeyboardInterrupt:
-        print("Coins:\n"+str(USERCOINS))
+        #print("Coins:\n"+str(USERCOINS))
         command.chat(s,"Goodbye!")
         with open(f,'w') as file:
             json.dump(USERCOINS,file)

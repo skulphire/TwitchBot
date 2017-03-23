@@ -1,5 +1,3 @@
-import os
-
 class Winloss(object):
     def __init__(self):
         self.outcome = 0

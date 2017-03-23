@@ -36,6 +36,13 @@ class Bot(object):
            """
         self.chat(sock, ".timeout {}".format(user,secs))
 
+    def startBet(self,sock):
+        file = open("betType.txt",'r')
+        type = file.read()
+        announcement = "Betting is open! use !bet amount option to place your bets. Example: !bet 100 1 for betting 100 on option 1"
+        self.chat(sock,announcement)
+        self.chat(sock, type)
+
     def getDefaultCoins(self,sock,user):
         USERCOINS[user] = DEFAULTCOIN
 
