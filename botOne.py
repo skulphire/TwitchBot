@@ -42,6 +42,7 @@ if __name__ == '__main__':
     command.chat(s, "Connected!")
     try:
         while True:
+
                 user, msg = socket.responses()
                 if not user == "*":
                     print(user + ": " + msg)
@@ -51,9 +52,10 @@ if __name__ == '__main__':
                     #     #print(msg)
                     #     command.getDefaultCoins(s,user)
                     #     command.chat(s,"@"+user+" has recieved "+str(DEFAULTCOIN)+" coins")
-                    if ("!coins") in msg:
+                    if ("!coin" or "!coins") in msg:
                         try:
-                            command.chat(s,user + " has " +str(coins.checkCoins(user)) + " coins")
+                            command.whisper(s,user,"You have "+str(coins.checkCoins(user)) + " coins")
+                            #command.chat(s,user + " has " +str(coins.checkCoins(user)) + " coins")
                             #print(str(coins.checkCoins(user)))
                         except Exception:
                             print("No value yet")
@@ -75,6 +77,8 @@ if __name__ == '__main__':
                             command.chat(s,"You do not have permission!")
                     elif ("!newbet") in msg:
                         if (APIDriver.checkMod(user) or user == "aphiremarbl"):
+                            list = msg.split(" ")
+                            TYPE = int(list[1])
                             command.startBet(s)
                             currentBetting = True
                             paid = False
@@ -86,19 +90,47 @@ if __name__ == '__main__':
                     if not timer.betTimer():
                         currentBetting = False
                         command.chat(s,"Betting has closed")
+                        #bets.percentages()
 
                 if not paid and not currentBetting:
+                    op1 = op2 =op3=op4=op5=""
                     file = open("vars.txt",'r')
                     outcome = file.read()
                     file.close()
                     #print(outcome)
+                    if TYPE == 1:
+                        op1 = "Win"
+                        op2 = "Lose"
+                    elif TYPE == 2:
+                        op1 = "1st place"
+                        op2 = "2nd place"
+                        op3 = "3rd place"
+                        op4 = "Lose"
+
                     if outcome == "1":
-                        bets.payoutsWin()
-                        command.chat(s,"Bets on Win have been paid out. Enjoy!")
+                        command.stateWinners(s,BETOPONE)
+                        bets.payoutsOne()
+                        command.chat(s,"Bets on "+op1+" have been paid out. Enjoy!")
                         paid = True
                     elif outcome == "2":
-                        bets.payoutsLose()
-                        command.chat(s, "Bets on Lose have been paid out. Enjoy!")
+                        command.stateWinners(s, BETOPTWO)
+                        bets.payoutsTwo()
+                        command.chat(s, "Bets on "+op2+" have been paid out. Enjoy!")
+                        paid = True
+                    elif outcome == "3":
+                        command.stateWinners(s, BETOPTHREE)
+                        bets.payoutsTwo()
+                        command.chat(s, "Bets on " + op3 + " have been paid out. Enjoy!")
+                        paid = True
+                    elif outcome == "4":
+                        command.stateWinners(s, BETOPFOUR)
+                        bets.payoutsTwo()
+                        command.chat(s, "Bets on " + op4 + " have been paid out. Enjoy!")
+                        paid = True
+                    elif outcome == "5":
+                        command.stateWinners(s, BETOPFIVE)
+                        bets.payoutsTwo()
+                        command.chat(s, "Bets on " + op5 + " have been paid out. Enjoy!")
                         paid = True
                     file.close()
                     file = open("vars.txt", 'w')

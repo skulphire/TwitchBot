@@ -54,18 +54,32 @@ class Winloss(object):
     def countWinLoss(self):
         while True:
             update = input(": ")
-            if update == "win":
+            if update == "1":
                 self.win = self.win+1
                 self.percentages()
                 self.outcome = 1
                 file = open(self.vars,'w')
                 self.writeVars(file)
-            elif update == "lose":
+            elif update == "2":
                 self.lose = self.lose+1
                 self.percentages()
                 self.outcome = 2
                 file = open(self.vars, 'w')
                 self.writeVars(file)
+                #percent and counter not available
+            elif update == "3":
+                self.outcome = 3
+                file = open(self.vars, 'w')
+                self.writeVars(file)
+            elif update == "4":
+                self.outcome = 4
+                file = open(self.vars, 'w')
+                self.writeVars(file)
+            elif update == "5":
+                self.outcome = 5
+                file = open(self.vars, 'w')
+                self.writeVars(file)
+
             elif update == "shot":
                 self.shots += 1
                 file = open(self.shottext,"w")
@@ -74,7 +88,7 @@ class Winloss(object):
                 self.shots = 0
                 file = open(self.shottext, "w")
                 self.writeShots(file)
-            elif update == "setwl0":
+            elif update == "set0":
                 self.lose = 0
                 self.win = 0
                 self.winPercent = 0

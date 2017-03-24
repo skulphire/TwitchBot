@@ -17,6 +17,10 @@ class Bot(object):
         sender = "PRIVMSG " + CHAN + " :" + msg +"\r\n"
         sock.send(sender.encode())
 
+    def whisper(self,sock,user,msg):
+        sender = "PRIVMSG " + CHAN + " :" + "/w "+user+" "+msg + "\r\n"
+        sock.send(sender.encode())
+
     def ban(self,sock,user):
         """
             Ban a user from the current channel.
@@ -37,23 +41,45 @@ class Bot(object):
         self.chat(sock, ".timeout {}".format(user,secs))
 
     def startBet(self,sock):
-        file = open("betType.txt",'r')
-        type = file.read()
-        file.close()
+        options = "Options: "
+        if TYPE == 1:
+            options += "Win = 1, Lose = 2"
+        elif TYPE == 2:
+            options += "1st = 1, 2nd = 2, 3rd = 3, Lose = 4"
+        elif TYPE == 3:
+            file = open("betType.txt",'r')
+            options = file.read()
+            file.close()
+
         announcement = "Betting is open! use !bet amount option to place your bets. Example: !bet 100 1 for betting 100 on option 1"
         self.chat(sock,announcement)
-        self.chat(sock, type)
+        self.chat(sock, options)
 
     def getDefaultCoins(self,sock,user):
         USERCOINS[user] = DEFAULTCOIN
+
+    def stateWinners(self,sock,winDict):
+        ar = []
+        for winner in winDict:
+            ar.append("@"+winner)
+        self.chat(sock,"Winners are:"+str(ar))
 
     def bets(self,sock,user,amount,option):
         if int(amount) > USERCOINS[user]:
             self.chat(sock,"@"+user+" - You don't have enough SaltCoins!")
         else:
             if "1" in option:
-                BETWIN[user] = int(amount)
+                BETOPONE[user] = int(amount)
                 USERCOINS[user] = USERCOINS[user] - int(amount)
             elif "2" in option:
-                BETLOSE[user] = int(amount)
+                BETOPTWO[user] = int(amount)
                 USERCOINS[user] = USERCOINS[user]- int(amount)
+            elif "3" in option:
+                BETOPTHREE[user] = int(amount)
+                USERCOINS[user] = USERCOINS[user] - int(amount)
+            elif "4" in option:
+                BETOPFOUR[user] = int(amount)
+                USERCOINS[user] = USERCOINS[user] - int(amount)
+            elif "5" in option:
+                BETOPFIVE[user] = int(amount)
+                USERCOINS[user] = USERCOINS[user] - int(amount)
