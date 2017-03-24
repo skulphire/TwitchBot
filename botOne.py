@@ -90,13 +90,16 @@ if __name__ == '__main__':
                 if not paid and not currentBetting:
                     file = open("vars.txt",'r')
                     outcome = file.read()
+                    file.close()
+                    #print(outcome)
                     if outcome == "1":
                         bets.payoutsWin()
                         command.chat(s,"Bets on Win have been paid out. Enjoy!")
+                        paid = True
                     elif outcome == "2":
                         bets.payoutsLose()
                         command.chat(s, "Bets on Lose have been paid out. Enjoy!")
-                    paid = True
+                        paid = True
                     file.close()
                     file = open("vars.txt", 'w')
                     file.write("0")

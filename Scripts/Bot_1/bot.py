@@ -39,6 +39,7 @@ class Bot(object):
     def startBet(self,sock):
         file = open("betType.txt",'r')
         type = file.read()
+        file.close()
         announcement = "Betting is open! use !bet amount option to place your bets. Example: !bet 100 1 for betting 100 on option 1"
         self.chat(sock,announcement)
         self.chat(sock, type)
