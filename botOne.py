@@ -67,7 +67,7 @@ if __name__ == '__main__':
                            command.bets(s,user,amount,option)
                        else:
                            command.chat(s,"Betting is closed or has not opened!")
-                    elif ("!give") in msg:
+                    elif ("!add") in msg:
                         if (APIDriver.checkMod(user) or user == "aphiremarbl"):
                             list = msg.split(" ")
                             userToGift = list[1]
@@ -84,6 +84,9 @@ if __name__ == '__main__':
                             paid = False
                         else:
                             command.chat(s, "You do not have permission!")
+                    # elif ("!sr") in msg:
+                    #     list = msg.split(" ")
+                    #     link = list[1]
 
 
                 if currentBetting:
