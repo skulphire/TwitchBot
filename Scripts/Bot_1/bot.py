@@ -40,13 +40,13 @@ class Bot(object):
            """
         self.chat(sock, ".timeout {}".format(user,secs))
 
-    def startBet(self,sock):
-        options = "Options: "
-        if TYPE == 1:
-            options += "Win = 1, Lose = 2"
-        elif TYPE == 2:
-            options += "1st = 1, 2nd = 2, 3rd = 3, Lose = 4"
-        elif TYPE == 3:
+    def startBet(self,sock,type):
+
+        if int(type) == 1:
+            options = "Options: Win = 1, Lose = 2"
+        elif int(type) == 2:
+            options = "Options: 1st = 1, 2nd = 2, 3rd = 3, Lose = 4"
+        elif int(type) == 3:
             file = open("betType.txt",'r')
             options = file.read()
             file.close()

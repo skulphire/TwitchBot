@@ -19,10 +19,10 @@ class Better(object):
         file.write("Odds: (%d%%)W - (%d%%)L" % (win,lose))
         file.close()
 
-    def payoutsOne(self):
-        if TYPE == 1:
+    def payoutsOne(self, type):
+        if type == 1:
             pay = 2
-        elif TYPE == 2:
+        elif type == 2:
             pay = 2
         else:
             pay = 1.5
@@ -36,10 +36,10 @@ class Better(object):
             USERCOINS[user] = USERCOINS[user]+int(coinsWon)
         self.clearBets()
 
-    def payoutsTwo(self):
-        if TYPE == 1:
+    def payoutsTwo(self, type):
+        if type == 1:
             pay = 2
-        elif TYPE == 2:
+        elif type == 2:
             pay = 1.6
         else:
             pay = 1.5
@@ -53,10 +53,10 @@ class Better(object):
             USERCOINS[user] = USERCOINS[user] + int(coinsWon)
         self.clearBets()
 
-    def payoutsThree(self):
-        if TYPE == 1:
+    def payoutsThree(self, type):
+        if type == 1:
             pay = 2
-        elif TYPE == 2:
+        elif type == 2:
             pay = 1.3
         else:
             pay = 1.5
@@ -69,10 +69,10 @@ class Better(object):
             USERCOINS[user] = USERCOINS[user]+int(coinsWon)
         self.clearBets()
 
-    def payoutsFour(self):
-        if TYPE == 1:
+    def payoutsFour(self, type):
+        if type == 1:
             pay = 2
-        elif TYPE == 2:
+        elif type == 2:
             pay = 1.1
         else:
             pay = 1.5
@@ -86,10 +86,10 @@ class Better(object):
             USERCOINS[user] = USERCOINS[user] + int(coinsWon)
         self.clearBets()
 
-    def payoutsFive(self):
-        if TYPE == 1:
+    def payoutsFive(self, type):
+        if type == 1:
             pay = 1.5
-        elif TYPE == 2:
+        elif type == 2:
             pay = 1.5
         else:
             pay = 1.5

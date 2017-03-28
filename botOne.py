@@ -34,6 +34,7 @@ if __name__ == '__main__':
     bets = better.Better()
     currentBetting = False
     paid = True
+    type = ""
 
     APIDriver = APIDriver.APIDriver()
     followers = input("How many followers? ")
@@ -78,12 +79,15 @@ if __name__ == '__main__':
                     elif ("!newbet") in msg:
                         if (APIDriver.checkMod(user) or user == "aphiremarbl"):
                             list = msg.split(" ")
-                            TYPE = int(list[1])
-                            command.startBet(s)
+                            type = list[1]
+                            command.startBet(s, type)
                             currentBetting = True
                             paid = False
                         else:
                             command.chat(s, "You do not have permission!")
+                    elif ("!help") in msg:
+                        command.chat(s,"More features coming! nosaltbot is in beta!")
+                        command.chat(s,"Commands: !coins, !bet")
                     # elif ("!sr") in msg:
                     #     list = msg.split(" ")
                     #     link = list[1]
@@ -101,10 +105,10 @@ if __name__ == '__main__':
                     outcome = file.read()
                     file.close()
                     #print(outcome)
-                    if TYPE == 1:
+                    if int(type) == 1:
                         op1 = "Win"
                         op2 = "Lose"
-                    elif TYPE == 2:
+                    elif int(type) == 2:
                         op1 = "1st place"
                         op2 = "2nd place"
                         op3 = "3rd place"
@@ -112,27 +116,27 @@ if __name__ == '__main__':
 
                     if outcome == "1":
                         command.stateWinners(s,BETOPONE)
-                        bets.payoutsOne()
+                        bets.payoutsOne(type)
                         command.chat(s,"Bets on "+op1+" have been paid out. Enjoy!")
                         paid = True
                     elif outcome == "2":
                         command.stateWinners(s, BETOPTWO)
-                        bets.payoutsTwo()
+                        bets.payoutsTwo(type)
                         command.chat(s, "Bets on "+op2+" have been paid out. Enjoy!")
                         paid = True
                     elif outcome == "3":
                         command.stateWinners(s, BETOPTHREE)
-                        bets.payoutsTwo()
+                        bets.payoutsThree(type)
                         command.chat(s, "Bets on " + op3 + " have been paid out. Enjoy!")
                         paid = True
                     elif outcome == "4":
                         command.stateWinners(s, BETOPFOUR)
-                        bets.payoutsTwo()
+                        bets.payoutsFour(type)
                         command.chat(s, "Bets on " + op4 + " have been paid out. Enjoy!")
                         paid = True
                     elif outcome == "5":
                         command.stateWinners(s, BETOPFIVE)
-                        bets.payoutsTwo()
+                        bets.payoutsFive(type)
                         command.chat(s, "Bets on " + op5 + " have been paid out. Enjoy!")
                         paid = True
                     file.close()
